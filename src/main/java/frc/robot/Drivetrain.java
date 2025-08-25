@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -17,10 +18,12 @@ public class Drivetrain extends SubsystemBase {
     private final SparkMax leftFollower = new SparkMax(1, MotorType.kBrushed);
     private final SparkMax rightLeader = new SparkMax(3, MotorType.kBrushed);
     private final SparkMax rightFollower = new SparkMax(4, MotorType.kBrushed);
-
-
+    private final DifferentialDrive drivetrain = new DifferentialDrive(leftLeader::set, rightLeader::set);
 
 public Drivetrain() {
+
+    System.out.println("in drivetrain constructor");
+
     SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
     leftFollowerConfig.follow(leftLeader.getDeviceId());
 
@@ -32,7 +35,13 @@ public Drivetrain() {
     leftFollower.configure(leftFollowerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightFollower.configure(rightFollowerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
+System.out.println("leaving drivetrain constructor");
 
 }
+
+public void drive(double xSpeed, double zRotation){
+    drivetrain.arcadeDrive(xSpeed, zRotation);
+}
+
 
 }

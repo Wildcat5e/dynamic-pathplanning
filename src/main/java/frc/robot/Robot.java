@@ -21,12 +21,11 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
  * the code necessary to operate a robot with tank drive.
  */
 public class Robot extends TimedRobot {
-  private final DifferentialDrive m_robotDrive;
   private final XboxController xboxController = new XboxController(0);
 
+Drivetrain drivetrain = new Drivetrain();
 
-  private final SparkMax m_leftMotor = new SparkMax(2, MotorType.kBrushed);
-  private final SparkMax m_rightMotor = new SparkMax(3, MotorType.kBrushed);
+
 
   /** Called once at the beginning of the robot program. */
   public Robot() {
@@ -34,18 +33,12 @@ public class Robot extends TimedRobot {
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
     
-    // this isn't doing anything
-    m_rightMotor.setInverted(true);
+System.out.println("robot constructor");
 
-    m_robotDrive = new DifferentialDrive(m_leftMotor::set, m_rightMotor::set);
-
-
-    SendableRegistry.addChild(m_robotDrive, m_leftMotor);
-    SendableRegistry.addChild(m_robotDrive, m_rightMotor);
   }
 
   @Override
   public void teleopPeriodic() {
-    m_robotDrive.tankDrive(xboxController.getLeftY(), xboxController.getRightY());
+    drivetrain.drive(-xboxController.getLeftY(), xboxController.getRightY());
   }
 }
