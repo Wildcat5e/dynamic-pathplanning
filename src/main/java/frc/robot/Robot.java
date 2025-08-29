@@ -11,6 +11,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        drivetrain.drive(-xboxController.getLeftY(), xboxController.getRightX());
+        drivetrain.arcadeDrive(xboxController.getLeftY(), xboxController.getRightX());
+        //drivetrain.tankDrive(xboxController.getLeftY(), xboxController.getRightY());
     }
 }
